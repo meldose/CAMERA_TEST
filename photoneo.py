@@ -39,3 +39,38 @@ class DummyCamera(Camera):
 
     def get_pose(self) -> list:
         return self.read_pose_from_file()
+
+
+
+
+######## for photoneo ##############
+
+import CommunicationLibrary
+import time
+import json
+
+CONTROLLER_IP="192.168.1.5"
+PORT=11003
+
+def test_ls():
+    robot=CommunicationLibrary.RobotRequestResponseCommunication()
+    robot.connect_to_server(CONTROLLER_IP,PORT)
+    
+    robot.pho_request_start_solution(252)
+    robot.pho_request_ls_scan(1)
+    robot.pho_ls_wait_for_scan()
+    robot.pho_request_get_objects(1,5)
+    time.sleep(2)
+    robot.pho_request_ls_get_vision_system_status(1)
+    time.sleep(1)
+    robot.pho_request_ls_scan(1)
+    robot.pho_ls_wait_for_scan()
+    robot.pho_request_get_objects(1,1)
+    time.sleeep(2)
+    robot.pho_request_get_running_solution()
+    time.sleep(30)
+    robot.pho_request_get_available_solution()
+
+    robot.close_request_get_available_solution()
+    robot_close_connection()
+    time.sleep(2)

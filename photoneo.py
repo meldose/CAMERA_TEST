@@ -72,5 +72,5 @@ def test_ls():
     robot.pho_request_get_available_solution()
 
     robot.close_request_get_available_solution()
-    robot_close_connection()
+    robot.close_connection()
     time.sleep(2)
